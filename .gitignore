@@ -234,6 +234,6 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 
-/src/main/resources/application.yaml
+/smartfarm/src/main/resources/application.yaml
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,java,intellij,visualstudiocode,git,gradle
