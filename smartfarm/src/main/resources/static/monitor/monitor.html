@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모니터링/제어</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <h1><a href="../index.html" class="title-link">Smart Farm</a></h1>
+    <p>실시간 모니터링</p>
+</header>
+
+<main>
+    <section class="sensor-data">
+        <div class="sensor">
+            <h2>온도</h2>
+            <p id="temperature">25°C</p>
+        </div>
+        <div class="sensor">
+            <h2>습도</h2>
+            <p id="humidity">25%</p>
+        </div>
+        <div class="sensor">
+            <h2>밝기</h2>
+            <p id="brightness">75%</p>
+        </div>
+        <div class="sensor">
+            <h2>이산화탄소</h2>
+            <p id="co2">40%</p>
+        </div>
+        <div class="sensor">
+            <h2>토양 수분</h2>
+            <p id="soilMoisture">60%</p>
+        </div>
+        <div class="sensor">
+            <h2>침입 감지</h2>
+            <p id="intrusionDetection">없음</p>
+        </div>
+    </section>
+    <section class="sensor-data">
+        <div class="sensor">
+            <h2>창문 상태</h2>
+            <p id="windowStatus">닫힘</p>
+            <button onclick="toggleWindow()">열기/닫기</button>
+        </div>
+        <div class="sensor">
+            <h2>조명</h2>
+            <p id="lightStatus">0%</p>
+            <input type="range" id="brightness-slider" min="0" max="100" value="0">
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 임베디드시스템 수요일 7조</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
