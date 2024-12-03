@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('temperature').textContent = `${data.temperature}°C`;
             document.getElementById('humidity').textContent = `${data.humidity}%`;
             document.getElementById('brightness').textContent = `${data.brightness}%`;
-            document.getElementById('co2').textContent = `${data.co2}%`;
+            document.getElementById('co2').textContent = `${data.co2}`;
             document.getElementById('soilMoisture').textContent = `${data.soil_moisture}%`;
             document.getElementById('intrusionDetection').textContent = data.intrusion;
         });
