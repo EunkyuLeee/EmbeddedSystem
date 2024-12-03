@@ -2,15 +2,25 @@
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
 #include <string.h>
+#include <Servo.h>
 
-const char* SSID = "SK_WiFiGIGA1594";
-const char* PASSWORD = "1903055488";
+const char* SSID = "EKPhone";
+const char* PASSWORD = "20020903";
 
 const char* SERVER = "http://es7.kro.kr:8080";
+
+Servo windowServo;
+int windowPin = 13;
 
 void setup() {
 
   Serial.begin(9600);
+
+  windowServo.attach(windowPin);
+
+  pinMode(5, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(0, OUTPUT);
 
   WiFi.begin(SSID, PASSWORD);
   while (WiFi.status() != WL_CONNECTED) {
@@ -51,6 +61,10 @@ void loop() {
       // Serial.println(payload);
       light = atoi(payload.c_str());
       Serial.println(light);
+      int mapping = map(light, 0, 100, 0, 255);
+      analogWrite(5, mapping);
+      analogWrite(4, mapping);
+      analogWrite(0, mapping);
     } else {
       Serial.print("Error code: ");
       Serial.println(httpResponseCode);
@@ -69,6 +83,11 @@ void loop() {
       // Serial.println(payload);
       strcpy(window, payload.c_str());
       Serial.println(window);
+      if (strcmp(window, "열림") == 0) {
+        windowServo.write(180);
+      } else {
+        windowServo.write(0);
+      }
     } else {
       Serial.print("Error code: ");
       Serial.println(httpResponseCode);
