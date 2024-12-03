@@ -3,8 +3,8 @@
 #include <WiFiClient.h>
 #include <string.h>
 
-const char* SSID = "EKPhone";
-const char* PASSWORD = "20020903";
+const char* SSID = "SK_WiFiGIGA1594";
+const char* PASSWORD = "1903055488";
 
 const char* SERVER = "http://es7.kro.kr:8080";
 
@@ -27,6 +27,14 @@ void loop() {
   char buf[1024];
   int light;
   char window[10];
+
+  String receivedData;
+
+  while (Serial.available()) { // 데이터가 수신되었는지 확인
+    receivedData = Serial.readStringUntil('\n'); // 데이터 읽기
+    Serial.println("Received: " + receivedData); // 수신된 데이터 출력
+  }
+
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     WiFiClient wifiClient;
@@ -40,7 +48,7 @@ void loop() {
     if (httpResponseCode > 0) {
       String payload = http.getString();
       // Serial.println(httpResponseCode);
-      Serial.println(payload);
+      // Serial.println(payload);
       light = atoi(payload.c_str());
       Serial.println(light);
     } else {
@@ -58,7 +66,7 @@ void loop() {
     if (httpResponseCode > 0) {
       String payload = http.getString();
       // Serial.println(httpResponseCode);
-      Serial.println(payload);
+      // Serial.println(payload);
       strcpy(window, payload.c_str());
       Serial.println(window);
     } else {
@@ -71,24 +79,8 @@ void loop() {
 
     http.begin(wifiClient, buf);
     http.addHeader("Content-Type", "application/json");
-    
-    String id = String(random(0,100));
-    String temperature = String(20);
-    String humidity = String(25);
-    String brightness = String(100);
-    String co2 = String(10);
-    String soil_moisture = String(10);
-    String intrusion = "\"없음\"";
 
-    String jsonPayload = "{\"id\": " + id + 
-      ",\"temperature\": " + temperature +
-      ",\"humidity\": " + humidity +
-      ",\"brightness\": " + brightness +
-      ",\"co2\": " + co2 +
-      ",\"soil_moisture\": " + soil_moisture +
-      ",\"intrusion\": " + intrusion + "}";
-
-    http.POST(jsonPayload);
+    http.POST(receivedData);
 
     if (httpResponseCode > 0) {
       String payload = http.getString();
@@ -102,7 +94,7 @@ void loop() {
     http.end();
   }
   
-  delay(10000);
+  delay(1000);
 }
 
 void setURL(char *buf, const char *s, const char *p) {
